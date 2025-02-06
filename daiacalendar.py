@@ -2,18 +2,26 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import time
 
+CONST_SECS_PER_YEAR = 39528000
+CONST_YEARS_PER_CYCLE = 143
+CONST_SECS_PER_DAY = 72000
+CONST_DAYS_PER_YEAR = 549
+CONST_SECS_PER_NATA = 4500
+CONST_SECS_PER_QAREN = 62.5
+CONST_DHAGIAI_PER_SECOND = 69.12 / 60
+
 @dataclass
 class DaiaDateTime:
     def __init__(self, secs):
         self.secs = secs
-        self.years, r = divmod(secs, 39528000)
+        self.years, r = divmod(secs, CONST_SECS_PER_YEAR)
         self.cycles = 34 if secs >= 0 else 33
-        self.yearsAbsolute = (self.cycles * 143) + self.years
-        self.days, r = divmod(r, 72000)
-        self.daysAbsolute = (self.years * 549) + self.days
-        self.natai, r = divmod(r, 4500)
-        self.qarenaw, r = divmod(r, 62.5)
-        self.dhagiai = r * 69.12 / 60
+        self.yearsAbsolute = (self.cycles * CONST_YEARS_PER_CYCLE) + self.years
+        self.days, r = divmod(r, CONST_SECS_PER_DAY)
+        self.daysAbsolute = (self.years * CONST_DAYS_PER_YEAR) + self.days
+        self.natai, r = divmod(r, CONST_SECS_PER_NATA)
+        self.qarenaw, r = divmod(r, CONST_SECS_PER_QAREN)
+        self.dhagiai = r * CONST_DHAGIAI_PER_SECOND
     def __str__(self):
         gemNames = ['Mau', 'Lòđríř', 'Áradî', 'Nenálû', 'Rŷmňû', 'Řalídam', 'Kànâja', 'Térezî', 'Volánsikhai', 'Kuja', 'Còwì', 'Neital', 'Súvâri']
         colorNames = ['Sajúmas', 'Cavartûs', 'Âfełaris', 'Mátsunas', 'Basîres', 'Menaós', 'Ìtreus', 'Ávris', 'Îceilis']
@@ -30,8 +38,8 @@ now = time.time()
 nowReadable = time.ctime(now)
 nowUniversal = datetime.now(timezone.utc)
 
-year = (now / 72000 // 549)
-day = (now // 72000) % 549
+year = (now / CONST_SECS_PER_DAY // CONST_DAYS_PER_YEAR)
+day = (now // CONST_SECS_PER_DAY) % CONST_DAYS_PER_YEAR
 
 d = DaiaDateTime(time.time())
 
