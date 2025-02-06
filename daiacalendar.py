@@ -21,7 +21,7 @@ class DaiaDateTime:
         wheel1Name = gemNames[int(d.daysAbsolute % 13)]
         wheel2Count = d.days % 61
         wheel2Name = colorNames[int(d.days % 9)]
-        wheels = " ".join([str(wheel1Count + 1), wheel1Name, str(wheel2Count + 1), wheel2Name])
+        wheels = " ".join([str(int(wheel1Count + 1)), wheel1Name, str(int(wheel2Count + 1)), wheel2Name])
         yearList = " ".join(["year", str(int(d.years + 1)), "of the", ordinal(d.cycles + 1), "cycle"])
         time = ";".join(["{0:02d}".format(int(d.natai)), "{0:02d}".format(int(d.qarenaw)), "{0:02.1f}".format(d.dhagiai)])
         return " ".join(["On Daia, today is", wheels, yearList, "and Aran Mean Time is", time])
