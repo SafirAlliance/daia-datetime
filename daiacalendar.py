@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 import time
 
-CONST_SECS_PER_YEAR = 39528000
+CONST_SECS_PER_YEAR = CONST_DAYS_PER_YEAR * CONST_SECS_PER_DAY
 CONST_YEARS_PER_CYCLE = 143
 CONST_SECS_PER_DAY = 72000
 CONST_DAYS_PER_YEAR = 549
